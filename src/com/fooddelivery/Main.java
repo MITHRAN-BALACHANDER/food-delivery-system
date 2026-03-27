@@ -9,22 +9,19 @@ import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
-        // Initialize Repositories
+    
         UserRepository userRepository = new UserRepository();
         OrderRepository orderRepository = new OrderRepository();
         RatingRepository ratingRepository = new RatingRepository();
 
-        // Initialize Services
         AuthService authService = new AuthService(userRepository);
         RestaurantService restaurantService = new RestaurantService(userRepository);
         DeliveryService deliveryService = new DeliveryService(userRepository);
         OrderService orderService = new OrderService(orderRepository, deliveryService, ratingRepository);
         AnalyticsService analyticsService = new AnalyticsService(orderRepository, ratingRepository, userRepository);
 
-        // Optional: Pre-fill some default data to make testing faster
         seedData(userRepository, restaurantService);
 
-        // Initialize and start UI
         ConsoleUI consoleUI = new ConsoleUI(authService, restaurantService, orderService, deliveryService, analyticsService);
         consoleUI.start();
     }

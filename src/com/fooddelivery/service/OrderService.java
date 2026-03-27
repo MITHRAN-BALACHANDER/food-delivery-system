@@ -32,8 +32,6 @@ public class OrderService {
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new IllegalArgumentException("Invalid order ID"));
         if (order.getStatus() == OrderStatus.PLACED) {
             order.setStatus(OrderStatus.CONFIRMED);
-            
-            // Assign agent dynamically
             DeliveryAgent agent = deliveryService.assignAgent(order.getDeliveryPincode());
             if (agent != null) {
                 order.setDeliveryAgent(agent);

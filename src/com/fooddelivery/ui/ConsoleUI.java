@@ -195,7 +195,14 @@ public class ConsoleUI {
         System.out.println("4. Toggle Accepting Orders");
         System.out.println("5. Logout");
         System.out.print("Option: ");
-        int choice = Integer.parseInt(scanner.nextLine());
+        String input = scanner.nextLine().trim();
+        int choice;
+        try {
+            choice = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid option. Please enter a number between 1 and 5.");
+            return;
+        }
 
         Restaurant r = (Restaurant) authService.getCurrentUser();
         switch (choice) {

@@ -3,8 +3,8 @@ package com.fooddelivery.model;
 public class Rating {
     private String id;
     private String orderId;
-    private int restaurantRating; // 1-5
-    private int deliveryAgentRating; // 1-5
+    private int restaurantRating;
+    private int deliveryAgentRating;
     private String feedback;
 
     public Rating(String id, String orderId, int restaurantRating, int deliveryAgentRating, String feedback) {

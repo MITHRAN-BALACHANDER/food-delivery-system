@@ -14,7 +14,6 @@ public class DeliveryService {
         this.userRepository = userRepository;
     }
 
-    // Smart logic: find nearest or first available
     public DeliveryAgent assignAgent(String targetPincode) {
         List<DeliveryAgent> agents = userRepository.findAll().stream()
                 .filter(u -> u.getRole() == Role.DELIVERY_AGENT)
@@ -23,17 +22,15 @@ public class DeliveryService {
                 .collect(Collectors.toList());
 
         if (agents.isEmpty()) {
-            return null; // No agents available
+            return null;
         }
 
-        // Try to assign one with matching pincode (nearest)
         for (DeliveryAgent agent : agents) {
             if (agent.getCurrentPincode().equals(targetPincode)) {
                 return agent;
             }
         }
 
-        // Fallback: first available
         return agents.get(0);
     }
 }
